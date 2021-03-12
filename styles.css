@@ -1,0 +1,58 @@
+.centered {
+	top: 50%;
+	transform: translate(0,-50%);
+}
+.activeJump {
+	cursor: pointer;
+	color: #424242;
+}
+.activeSearch {
+	opacity: 1 !important;
+	transform: translateY(3px) !important;
+	transition: all 150ms linear;
+}
+
+#searchBar___container .searchBar___inputContainer {
+	display: inline-block;
+	position: absolute;
+	height: 24px;
+	width: 96%;
+	padding: 0 2% 0 2%;
+}
+#searchBar___container .searchBar___inputContainer .searchBar___input {
+	padding: 0;
+	display: inline-block;
+	height: 24px;
+	border: none;
+	font-size: 16px;
+	width: 240px;
+}
+#searchBar___container .searchBar___inputContainer .searchBar___input:focus {
+	outline-width: 0;
+}
+#searchBar___container .searchBar___inputContainer .searchBar___counter {
+	display: inline-block;
+	text-align: center;
+	border-right: 1px solid #aaa;
+	width: 60px;
+	color: #aaa;
+}
+#searchBar___container .searchBar___inputContainer .searchBar___jump {
+	display: inline-block;
+	text-align: center;
+	width: 60px;
+	color: #aaa;
+	right: 0;
+}
+#searchBar___container .searchBar___inputContainer .searchBar___jump span {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+#searchBar___container .searchBar___close {
+	cursor: pointer;
+	display: inline-block;
+	position: absolute;
+	width: 20px;
+	right: 5px;
+	color: black;
+} 

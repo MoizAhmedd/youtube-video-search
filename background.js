@@ -7,7 +7,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", endpoint, true);
 			xhr.onreadystatechange = function () {
-				var resp = JSON.parse(xhr.responseText);
+				var resp;
+				if(xhr.responseText) {
+					resp = JSON.parse(xhr.responseText);
+				}
 				chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 					if (request.type == "getTimestamp") {
 						sendResponse(resp.mapping[request.word]);

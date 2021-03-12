@@ -8,6 +8,9 @@
 		"http://*.youtube.com/*",
 		"https://*.youtube.com/*"
 	],
+	"web_accessible_resources": [
+        "styles.css"
+    ],
 	"content_scripts": [
 	  {
 		"matches": [
@@ -16,7 +19,8 @@
 		],
 		"js": [
 		  "content.js"
-		]
+		],
+		"css":["styles.css"]
 	  }
 	],
 	"background": {
