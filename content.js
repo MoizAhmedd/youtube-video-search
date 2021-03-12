@@ -4,7 +4,7 @@ function openSearchBar(e) {
 	//Open search bar on option+f
 	if (window.location.href.includes('watch') && e.code=="KeyF" && e.altKey) {
 		document.removeEventListener('click',function(e){
-			console.log('holy fuck');
+			console.log('removed listener');
 		})
 		alert('Open search bar');
 		// document.addEventListener('keydown',seekToTimeStamp);
@@ -70,8 +70,5 @@ document.addEventListener('keydown',openSearchBar);
 document.addEventListener('click',createSearchBar);
 
 
-function launchSearch(event) {
-	document.getElementById('searchBar___container').classList.add("activeSearch");
-}
   
 
