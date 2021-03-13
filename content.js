@@ -42,21 +42,25 @@ function handleInput(e) {
 
 
 function createSearchBar(){
+	var searchBarOuter = document.createElement('div')
+	searchBarOuter.style = 'display:flex;flex-direction:row-reverse;'
     var searchBarContainer = document.createElement('div')
-    searchBarContainer.style = 'display:flex;background:white;border: 1px solid #ccc;width:50%;justify-content: space-between;height:50px';
+    searchBarContainer.style = 'margin-bottom:10px;width: 300px;height: 40px;background: #DADADA;border-radius: 5px;display:flex;justify-content: space-between;';
 	var searchBarInput = document.createElement('input');
-	searchBarInput.style = 'border:none;height:50px;font-size:16px;width:240px';
+	searchBarInput.style = 'margin:1%;height:30px;border:none;background: #DADADA;';
     searchBarInput.setAttribute('name','query');
 	searchBarInput.setAttribute('type','text');
+	searchBarInput.setAttribute('placeholder','Search for a word');
 	searchBarInput.addEventListener('input',handleInput);
 	var counter = document.createElement('p')
 	counter.setAttribute('id','wordCounter');
-    counter.innerHTML = `0 of 0`
+	counter.innerHTML = `0 of 0`
+	counter.style = 'margin:0;line-height:40px;color:#2c2c2c;';
     var verticalLine = document.createElement('div')
-    verticalLine.style = 'border-left: 1px solid black;'
+    verticalLine.style = 'border-left: 1px solid #2c2c2c;'
     var jump = document.createElement('div')
     jump.style = 'display:flex';
-    jumpStyle = 'padding-left:5px;padding-right:5px;'
+    jumpStyle = 'padding-left: 5px; padding-right: 5px;margin:0;line-height:40px;color:#2c2c2c;'
     var jumpAnd = document.createElement('p')
     jumpAnd.innerHTML = '&and;'
     jumpAnd.style = jumpStyle;
@@ -64,8 +68,9 @@ function createSearchBar(){
     jumpOr.innerHTML = '&or;'
     jumpOr.style = jumpStyle;
     var close = document.createElement('p')
-    close.style = 'margin-top:10px;'
-    close.innerHTML = '&#x274c'
+    close.style = 'margin:0;line-height: 40px;padding-right:5px;font-size:1.5em;color:#2c2c2c;'
+	close.innerHTML = '&#215'
+	searchBarOuter.appendChild(searchBarContainer)
     searchBarContainer.appendChild(searchBarInput)
     searchBarContainer.appendChild(counter)
     searchBarContainer.appendChild(verticalLine)
@@ -74,9 +79,9 @@ function createSearchBar(){
     jump.appendChild(jumpOr);
     searchBarContainer.appendChild(close);
     
-    console.log('hmm');
-    var list = document.getElementById('primary')
-	list.insertBefore(searchBarContainer,list.childNodes[0]);
+	var list = document.getElementById('primary');
+	console.log(list.childNodes[0]);
+	list.insertBefore(searchBarOuter,list.childNodes[0]);
 	
 }
 

@@ -57,3 +57,8 @@
 	right: 5px;
 	color: black;
 } 
+
+
+::placeholder {
+	font-style: italic;
+}
