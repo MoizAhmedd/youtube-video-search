@@ -1,4 +1,5 @@
 .centered {
+	width: 100%;
 	top: 50%;
 	transform: translate(0,-50%);
 }
@@ -15,7 +16,7 @@
 #searchBar___container .searchBar___inputContainer {
 	display: inline-block;
 	position: absolute;
-	height: 24px;
+	height: 50px;
 	width: 96%;
 	padding: 0 2% 0 2%;
 }

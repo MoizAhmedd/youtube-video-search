@@ -1,73 +1,87 @@
 
-let searchBarExists = false;
+let word = '';
+let idx = 0;
+let numWords = 0;
+let timestamps = [];
 function openSearchBar(e) {
 	//Open search bar on option+f
 	if (window.location.href.includes('watch') && e.code=="KeyF" && e.altKey) {
-		document.removeEventListener('click',function(e){
-			console.log('removed listener');
-		})
-		alert('Open search bar');
-		// document.addEventListener('keydown',seekToTimeStamp);
-		document.getElementById('searchBar___container').classList.add("activeSearch");
+		createSearchBar();
+		document.addEventListener('keydown',seekToTimeStamp);
+		// document.getElementById('searchBar___container').classList.add("activeSearch");
 	}
 } 
 
 function seekToTimeStamp(e) {
-	console.log('Seeking time stamp my nigga')
+	if (e.key == "Enter" && (idx < numWords)) { 
+		try {
+			let timestamp = timestamps[idx];
+			console.log(timestamp);
+			video = document.getElementsByTagName('video')[0];
+			video.pause();
+			video.currentTime = timestamp;
+			video.play();
+			idx += 1;
+			document.getElementById('wordCounter').innerHTML = `${idx} of ${numWords}`;
+		} catch(error) {
+			console.log(error);
+		}
+	} 
 }
 
-function createSearchBar(e){
-	if(!(window.location.href.includes('watch'))) {
-		return false;
-	}
-	console.log('Creating search bar');
-	//Divs
-	var searchBarContainer = document.createElement('div'); 
-	searchBarContainer.setAttribute('class','centered')
-	searchBarContainer.setAttribute('id','searchBar___container');
+function handleInput(e) {
+	word = e.target.value;
+	chrome.runtime.sendMessage({type:"getTimestamp",word:word}, function(response){
+		if (response) {
+			numWords = response.length;
+			document.getElementById('wordCounter').innerHTML = `${idx} of ${numWords}`;
+			timestamps = response;
+		}
+	})
+}
 
-	var searchBarInputContainer = document.createElement('div');
-	searchBarInputContainer.setAttribute('class','searchBar___inputContainer centered');
 
-	var searchBarJump = document.createElement('div');
-	searchBarJump.setAttribute('class','searchBar__jump');
-
-	//Inputs
+function createSearchBar(){
+    var searchBarContainer = document.createElement('div')
+    searchBarContainer.style = 'display:flex;background:white;border: 1px solid #ccc;width:50%;justify-content: space-between;height:50px';
 	var searchBarInput = document.createElement('input');
-	searchBarInput.setAttribute('class','searchBar__input');
-	searchBarInput.setAttribute('name','query');
+	searchBarInput.style = 'border:none;height:50px;font-size:16px;width:240px';
+    searchBarInput.setAttribute('name','query');
 	searchBarInput.setAttribute('type','text');
-
-	//Spans
-	var searchBarCounter = document.createElement('span');
-	searchBarCounter.innerHTML = '0 of 0';
-	searchBarCounter.setAttribute('class','searchBar__counter');
-
-	var searchBarJumpAnd = document.createElement('span');
-	searchBarJumpAnd.innerHTML = '&and;'
-
-	var searchBarJumpOr = document.createElement('span');
-	searchBarJumpOr.innerHTML = '&or;'
-
-	var searchBarClose = document.createElement('span');
-	searchBarClose.innerHTML = '&#x274c';
-	searchBarClose.setAttribute('id','closeSearchBar')
-	searchBarClose.setAttribute('class','searchBar___close centered')
-
-	//Link elements
-	searchBarContainer.appendChild(searchBarInputContainer);
-	searchBarContainer.appendChild(searchBarClose);
-	searchBarInputContainer.appendChild(searchBarInput);
-	searchBarInputContainer.appendChild(searchBarCounter);
-	searchBarInputContainer.appendChild(searchBarJump);
-	searchBarJump.appendChild(searchBarJumpAnd);
-	searchBarJump.appendChild(searchBarJumpOr);
-
-	document.body.appendChild(searchBarContainer);
+	searchBarInput.addEventListener('input',handleInput);
+	var counter = document.createElement('p')
+	counter.setAttribute('id','wordCounter');
+    counter.innerHTML = `0 of 0`
+    var verticalLine = document.createElement('div')
+    verticalLine.style = 'border-left: 1px solid black;'
+    var jump = document.createElement('div')
+    jump.style = 'display:flex';
+    jumpStyle = 'padding-left:5px;padding-right:5px;'
+    var jumpAnd = document.createElement('p')
+    jumpAnd.innerHTML = '&and;'
+    jumpAnd.style = jumpStyle;
+    var jumpOr = document.createElement('p')
+    jumpOr.innerHTML = '&or;'
+    jumpOr.style = jumpStyle;
+    var close = document.createElement('p')
+    close.style = 'margin-top:10px;'
+    close.innerHTML = '&#x274c'
+    searchBarContainer.appendChild(searchBarInput)
+    searchBarContainer.appendChild(counter)
+    searchBarContainer.appendChild(verticalLine)
+    searchBarContainer.appendChild(jump);
+    jump.appendChild(jumpAnd);
+    jump.appendChild(jumpOr);
+    searchBarContainer.appendChild(close);
+    
+    console.log('hmm');
+    var list = document.getElementById('primary')
+	list.insertBefore(searchBarContainer,list.childNodes[0]);
+	
 }
 
 document.addEventListener('keydown',openSearchBar);
-document.addEventListener('click',createSearchBar);
+// document.addEventListener('click',createSearchBar);
 
 
   

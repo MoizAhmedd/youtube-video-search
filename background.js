@@ -7,13 +7,18 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", endpoint, true);
 			xhr.onreadystatechange = function () {
-				var resp;
-				if(xhr.responseText) {
+				let resp = ''
+				try {
 					resp = JSON.parse(xhr.responseText);
+				} catch(error) {
+					console.log('Couldnt parse');
 				}
-				chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+				chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { 
 					if (request.type == "getTimestamp") {
-						sendResponse(resp.mapping[request.word]);
+						console.log(request.word);
+						if (resp.mapping) {
+							sendResponse(resp.mapping[request.word]);
+						}
 					}
 				});
 			}
