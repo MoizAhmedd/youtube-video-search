@@ -17,6 +17,10 @@ def get_sec(time_str):
     h, m, s = time_str.split(':')
     return int(h) * 3600 + int(m) * 60 + int(s)
 
+@app.route('/', methods=['GET'])
+def index():
+	return '<h1>Server is up</h1>'
+
 @app.route('/get-mapping', methods=['GET'])
 def get_mapping():
 	try:
