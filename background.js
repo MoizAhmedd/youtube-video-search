@@ -3,7 +3,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	if ( tab.url && tab.url.includes('watch?v') ) {
 		if(currVideoID != tab.url.split('?v=')[1].slice(0,11)) {
 			currVideoID = tab.url.split('?v=')[1].slice(0,11);
-			let endpoint = `http://localhost:5000/get-mapping?videoid=${currVideoID}`;
+			let endpoint = `http://3.137.212.199:5000/get-mapping?videoid=${currVideoID}`;
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", endpoint, true);
 			xhr.onreadystatechange = function () {

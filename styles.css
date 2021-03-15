@@ -1,63 +1,51 @@
-.centered {
-	width: 100%;
-	top: 50%;
-	transform: translate(0,-50%);
-}
-.activeJump {
-	cursor: pointer;
-	color: #424242;
-}
-.activeSearch {
-	opacity: 1 !important;
-	transform: translateY(3px) !important;
-	transition: all 150ms linear;
+
+#searchBarOuter {
+	display:flex;
+	flex-direction:row-reverse;
 }
 
-#searchBar___container .searchBar___inputContainer {
-	display: inline-block;
-	position: absolute;
-	height: 50px;
-	width: 96%;
-	padding: 0 2% 0 2%;
-}
-#searchBar___container .searchBar___inputContainer .searchBar___input {
-	padding: 0;
-	display: inline-block;
-	height: 24px;
-	border: none;
-	font-size: 16px;
-	width: 240px;
-}
-#searchBar___container .searchBar___inputContainer .searchBar___input:focus {
-	outline-width: 0;
-}
-#searchBar___container .searchBar___inputContainer .searchBar___counter {
-	display: inline-block;
-	text-align: center;
-	border-right: 1px solid #aaa;
-	width: 60px;
-	color: #aaa;
-}
-#searchBar___container .searchBar___inputContainer .searchBar___jump {
-	display: inline-block;
-	text-align: center;
-	width: 60px;
-	color: #aaa;
-	right: 0;
-}
-#searchBar___container .searchBar___inputContainer .searchBar___jump span {
-	padding-left: 5px;
-	padding-right: 5px;
-}
-#searchBar___container .searchBar___close {
-	cursor: pointer;
-	display: inline-block;
-	position: absolute;
-	width: 20px;
-	right: 5px;
-	color: black;
-} 
+.searchBarContainer {
+	display:flex;
+	justify-content: space-between;
+	margin-bottom:10px;
+	width: 300px;
+	height: 40px;
+	background: #DADADA;
+	border-radius: 5px;
 
+}
+
+#searchBarInput {
+	margin:1%;
+	height:30px;
+	border:none;
+	background: #DADADA;
+}
+
+#wordCounter {
+	margin:0;
+	line-height:40px;
+	color:#2c2c2c;	
+}
+
+.verticalLine {
+	border-left: 1px solid #2c2c2c;
+}
+
+#jumpAnd:hover {
+	cursor: pointer;
+	color: #7c7c7c !important;
+}
+
+#jumpOr:hover {
+	cursor: pointer;
+	color: #7c7c7c !important;
+}
+
+#closeIcon:hover {
+	cursor:pointer;
+	color: red !important;
+}
 
 ::placeholder {
 	font-style: italic;

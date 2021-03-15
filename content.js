@@ -6,27 +6,60 @@ let timestamps = [];
 function openSearchBar(e) {
 	//Open search bar on option+f
 	if (window.location.href.includes('watch') && e.code=="KeyF" && e.altKey) {
-		createSearchBar();
-		document.addEventListener('keydown',seekToTimeStamp);
-		// document.getElementById('searchBar___container').classList.add("activeSearch");
-	}
+		if (!document.getElementById('searchBarOuter')) {
+			createSearchBar();
+			document.addEventListener('keydown',seekToTimeStamp);
+		} else if (document.getElementById('searchBarOuter').style.display == 'none') {
+			word = '';
+			idx = 0;
+			numWords = 0;
+			timestamps = [];
+			document.getElementById('searchBarInput').value = '';
+			document.getElementById('wordCounter').innerHTML = `${idx} of ${numWords}`;
+			document.getElementById('searchBarOuter').style.display = "flex";
+		} 
+	} 
 } 
+
+function nextTimeStamp(increment='up') {
+	if ( increment == 'up' ) {
+		idx += 1;
+	} else {
+		idx -= 1;
+	}
+	let timestamp = timestamps[idx];
+	video = document.getElementsByTagName('video')[0];
+	video.pause();
+	video.currentTime = timestamp;
+	video.play();
+	document.getElementById('wordCounter').innerHTML = `${idx} of ${numWords}`;
+}
+
 
 function seekToTimeStamp(e) {
 	if (e.key == "Enter" && (idx < numWords)) { 
 		try {
-			let timestamp = timestamps[idx];
-			console.log(timestamp);
-			video = document.getElementsByTagName('video')[0];
-			video.pause();
-			video.currentTime = timestamp;
-			video.play();
-			idx += 1;
-			document.getElementById('wordCounter').innerHTML = `${idx} of ${numWords}`;
+			nextTimeStamp();
 		} catch(error) {
 			console.log(error);
 		}
 	} 
+}
+
+function incrementUp(e) {
+	if (idx < numWords) {
+		nextTimeStamp();
+	}
+}
+
+function incrementDown(e) {
+	if (idx > 0) {
+		nextTimeStamp('down');
+	}	
+}
+
+function closeSearch(e) {
+	document.getElementById('searchBarOuter').style.display = 'none';
 }
 
 function handleInput(e) {
@@ -42,34 +75,50 @@ function handleInput(e) {
 
 
 function createSearchBar(){
-	var searchBarOuter = document.createElement('div')
-	searchBarOuter.style = 'display:flex;flex-direction:row-reverse;'
-    var searchBarContainer = document.createElement('div')
-    searchBarContainer.style = 'margin-bottom:10px;width: 300px;height: 40px;background: #DADADA;border-radius: 5px;display:flex;justify-content: space-between;';
+	var searchBarOuter = document.createElement('div');
+	searchBarOuter.setAttribute('id','searchBarOuter');
+
+	var searchBarContainer = document.createElement('div')
+	searchBarContainer.setAttribute('class','searchBarContainer');
+	
 	var searchBarInput = document.createElement('input');
-	searchBarInput.style = 'margin:1%;height:30px;border:none;background: #DADADA;';
+	searchBarInput.setAttribute('id','searchBarInput');
     searchBarInput.setAttribute('name','query');
 	searchBarInput.setAttribute('type','text');
 	searchBarInput.setAttribute('placeholder','Search for a word');
 	searchBarInput.addEventListener('input',handleInput);
-	var counter = document.createElement('p')
+
+	var counter = document.createElement('p');
 	counter.setAttribute('id','wordCounter');
 	counter.innerHTML = `0 of 0`
-	counter.style = 'margin:0;line-height:40px;color:#2c2c2c;';
-    var verticalLine = document.createElement('div')
-    verticalLine.style = 'border-left: 1px solid #2c2c2c;'
-    var jump = document.createElement('div')
-    jump.style = 'display:flex';
-    jumpStyle = 'padding-left: 5px; padding-right: 5px;margin:0;line-height:40px;color:#2c2c2c;'
-    var jumpAnd = document.createElement('p')
+
+	var verticalLine = document.createElement('div');
+	verticalLine.setAttribute('class','verticalLine');
+	
+	var jump = document.createElement('div')
+	jump.style = 'display:flex';
+	
+	jumpStyle = 'padding-left: 5px; padding-right: 5px;margin:0;line-height:40px;color:#2c2c2c;'
+	
+	var jumpAnd = document.createElement('p')
+	jumpAnd.setAttribute('id','jumpAnd');
     jumpAnd.innerHTML = '&and;'
-    jumpAnd.style = jumpStyle;
-    var jumpOr = document.createElement('p')
+	jumpAnd.style = jumpStyle;
+	jumpAnd.addEventListener('click',incrementUp);
+	
+	var jumpOr = document.createElement('p')
+	jumpOr.setAttribute('id','jumpOr');
     jumpOr.innerHTML = '&or;'
-    jumpOr.style = jumpStyle;
-    var close = document.createElement('p')
+	jumpOr.style = jumpStyle;
+	jumpOr.addEventListener('click',incrementDown);
+	
+	var close = document.createElement('p')
+	close.setAttribute('id','closeIcon');
     close.style = 'margin:0;line-height: 40px;padding-right:5px;font-size:1.5em;color:#2c2c2c;'
 	close.innerHTML = '&#215'
+	close.addEventListener('click',closeSearch);
+
+	//Link Elements
 	searchBarOuter.appendChild(searchBarContainer)
     searchBarContainer.appendChild(searchBarInput)
     searchBarContainer.appendChild(counter)
@@ -79,14 +128,13 @@ function createSearchBar(){
     jump.appendChild(jumpOr);
     searchBarContainer.appendChild(close);
     
-	var list = document.getElementById('primary');
+	var list = document.getElementById('primary-inner');
 	console.log(list.childNodes[0]);
 	list.insertBefore(searchBarOuter,list.childNodes[0]);
 	
 }
 
 document.addEventListener('keydown',openSearchBar);
-// document.addEventListener('click',createSearchBar);
 
 
   
