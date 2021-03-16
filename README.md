@@ -16,6 +16,7 @@ An extension that lets you search for words in a youtube video, and seeks to tha
 - <s>Reset transcript/search on new vids</s>
 - <s>Switch to indices starting at 1</s>
 - <s>Option F to toggle search bar off</s>
+- Test going away from youtube, going to home page etc
 
 ## Development Usage
 
