@@ -25,6 +25,7 @@ An extension that lets you search for words in a youtube video, and seeks to tha
 - `pip install -r requirements.txt`
 - Install youtube-dl, tutorial here https://github.com/ytdl-org/youtube-dl 
 - Change the endpoint in background.js to http://localhost:5000 
+- Run server: `python app.py`
 
 ## Possible Pull Requests
 - Remove preposition words from the mapping (words like "of", "as", "on")
