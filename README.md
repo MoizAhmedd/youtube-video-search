@@ -12,7 +12,19 @@ An extension that lets you search for words in a youtube video, and seeks to tha
 - <s>Get transcript of video given the video ID</s>
 - <s>Write a function that will given a word and transcript get a list of timestamps</s>
 - <s>Write a function that will seek a youtube video to a timestamp</s>
-- Searchbar + enter + shortcut logic
+- <s>Searchbar + enter + shortcut logic</s>
+
+## Development Usage
+
+# Client (extension)
+- `git clone https://github.com/MoizAhmedd/youtube-video-search.git` to your local machine
+- `chrome://extensions` in Chrome and Turn on Developer Mode
+- Select Load Unpacked and navigate to the `youtube-video-search` directory
+
+# Server
+- `pip install -r requirements.txt`
+- Install youtube-dl, tutorial here https://github.com/ytdl-org/youtube-dl 
+- Change the endpoint in background.js to http://localhost:5000 
 
 ## Possible Pull Requests
 - Remove preposition words from the mapping (words like "of", "as", "on")
