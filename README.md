@@ -16,12 +16,12 @@ An extension that lets you search for words in a youtube video, and seeks to tha
 
 ## Development Usage
 
-# Client (extension)
+### Client (extension)
 - `git clone https://github.com/MoizAhmedd/youtube-video-search.git` to your local machine
 - `chrome://extensions` in Chrome and Turn on Developer Mode
 - Select Load Unpacked and navigate to the `youtube-video-search` directory
 
-# Server
+### Server
 - `pip install -r requirements.txt`
 - Install youtube-dl, tutorial here https://github.com/ytdl-org/youtube-dl 
 - Change the endpoint in background.js to http://localhost:5000 
