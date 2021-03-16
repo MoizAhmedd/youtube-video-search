@@ -13,6 +13,9 @@ An extension that lets you search for words in a youtube video, and seeks to tha
 - <s>Write a function that will given a word and transcript get a list of timestamps</s>
 - <s>Write a function that will seek a youtube video to a timestamp</s>
 - <s>Searchbar + enter + shortcut logic</s>
+- <s>Reset transcript/search on new vids</s>
+- <s>Switch to indices starting at 1</s>
+- <s>Option F to toggle search bar off</s>
 
 ## Development Usage
 

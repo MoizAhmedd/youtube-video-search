@@ -3,6 +3,15 @@ let word = '';
 let idx = 0;
 let numWords = 0;
 let timestamps = [];
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { 
+	if (request.type == "closeSearch") {
+		closeSearch(true);
+		sendResponse(true);
+	}
+	return true;
+});
+
 function openSearchBar(e) {
 	//Open search bar on option+f
 	if (window.location.href.includes('watch') && e.code=="KeyF" && e.altKey) {
@@ -17,7 +26,9 @@ function openSearchBar(e) {
 			document.getElementById('searchBarInput').value = '';
 			document.getElementById('wordCounter').innerHTML = `${idx} of ${numWords}`;
 			document.getElementById('searchBarOuter').style.display = "flex";
-		} 
+		} else {
+			closeSearch();
+		}
 	} 
 } 
 
@@ -27,7 +38,7 @@ function nextTimeStamp(increment='up') {
 	} else {
 		idx -= 1;
 	}
-	let timestamp = timestamps[idx];
+	let timestamp = timestamps[idx-1];
 	video = document.getElementsByTagName('video')[0];
 	video.pause();
 	video.currentTime = timestamp;
@@ -53,7 +64,7 @@ function incrementUp(e) {
 }
 
 function incrementDown(e) {
-	if (idx > 0) {
+	if (idx > 1) {
 		nextTimeStamp('down');
 	}	
 }
@@ -67,9 +78,13 @@ function handleInput(e) {
 	chrome.runtime.sendMessage({type:"getTimestamp",word:word}, function(response){
 		if (response) {
 			numWords = response.length;
-			document.getElementById('wordCounter').innerHTML = `${idx} of ${numWords}`;
 			timestamps = response;
+		} else {
+			idx = 0;
+			numWords = 0;
+			timestamps = [];
 		}
+		document.getElementById('wordCounter').innerHTML = `${idx} of ${numWords}`;
 	})
 }
 
@@ -129,13 +144,10 @@ function createSearchBar(){
     searchBarContainer.appendChild(close);
     
 	var list = document.getElementById('primary-inner');
-	console.log(list.childNodes[0]);
 	list.insertBefore(searchBarOuter,list.childNodes[0]);
 	
 }
 
 document.addEventListener('keydown',openSearchBar);
 
-
-  
 
