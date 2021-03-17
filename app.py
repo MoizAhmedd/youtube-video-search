@@ -8,9 +8,6 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-			# let timestampSplit = timestamp.split(':');
-			# let timeStampSeconds = (+timestampSplit[0]) * 60 * 60 + (+timestampSplit[1]) * 60 + (+timestampSplit[2]); 
-			# console.log(timeStampSeconds);
 
 def get_sec(time_str):
     """Get Seconds from time."""

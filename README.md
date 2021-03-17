@@ -1,11 +1,12 @@
 ## Youtube Word Search
 An extension that lets you search for words in a youtube video, and seeks to that timestamp
 
-## How it will work
-- Once you go on a youtube video, I will need to have a transcript of the video
-- Using some shortcut, will open a search bar somewhere around the video where you can search for words
-- As you write a word, it will show you the number of times it appears in the video(transcript)
-- As you press enter, the video will seek to the timestamp
+## How it works
+- Once you go on a youtube video, a request is sent to the server to get a transcript of the video
+- The server returns a dictionary where each word is mapped to a list of timestamps where that word occurs
+- As the user presses the shortcut option/alt + f, a search bar is opened
+- As user begins types a word and presses enter, the youtube video is forwared/seeks to the timestamp at whichever index the user is currently on
+- Demo on https://moizahmedd.github.io/youtubesearch
 
 ## Todo
 - <s>Determine when you're on a video</s>
@@ -16,7 +17,7 @@ An extension that lets you search for words in a youtube video, and seeks to tha
 - <s>Reset transcript/search on new vids</s>
 - <s>Switch to indices starting at 1</s>
 - <s>Option F to toggle search bar off</s>
-- Test going away from youtube, going to home page etc
+- <s>Test going away from youtube, going to home page etc</s>
 
 ## Development Usage
 
@@ -33,3 +34,4 @@ An extension that lets you search for words in a youtube video, and seeks to tha
 
 ## Possible Pull Requests
 - Remove preposition words from the mapping (words like "of", "as", "on")
+- Add support for full phrases

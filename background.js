@@ -11,8 +11,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 				})
 			  }
 			currVideoID = tab.url.split('?v=')[1].slice(0,11);
-			// let endpoint = `http://youtubedl.acceleratedcloudone.com:5000/get-mapping?videoid=${currVideoID}`;
-			let endpoint = `http://localhost:5000/get-mapping?videoid=${currVideoID}`;
+			let endpoint = `http://youtubedl.acceleratedcloudone.com:5000/get-mapping?videoid=${currVideoID}`;
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", endpoint, true);
 			xhr.onreadystatechange = function () {
