@@ -3,6 +3,12 @@
 	"name": "Youtube Word Search",
 	"version": "1.0.1",
 	"description": "An extension that lets you search for words in a youtube video, and seeks to that timestamp",
+	"icons": {
+		"16": "16.png",
+		"32": "32.png",
+		"48": "64.png",
+		"128": "128.png"
+	},
   "manifest_version": 2,
 	"permissions": [
 		"http://*.youtube.com/*",
