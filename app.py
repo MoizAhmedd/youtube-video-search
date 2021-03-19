@@ -1,8 +1,8 @@
 from flask import Flask, request
 from flask_cors import CORS
+import uuid 
 import subprocess
 import os
-
 
 
 app = Flask(__name__)
@@ -22,9 +22,10 @@ def index():
 def get_mapping():
 	try:
 		video_id = request.args.get('videoid')
+		transcript_id = str(uuid.uuid1())
 		mapping = {}
-		rc = subprocess.call(["./get_transcript.sh", video_id])
-		transcript_file = open('transcript.txt','r')
+		rc = subprocess.call(["./get_transcript.sh", video_id, transcript_id])
+		transcript_file = open('transcript_{}.txt'.format(transcript_id),'r')
 		for line in transcript_file.readlines():
 			line_split = line.strip().split(' ')
 			timestamp = line_split[0]
@@ -35,7 +36,7 @@ def get_mapping():
 					mapping[word] = sorted(list(set(mapping[word])))
 				else:
 					mapping[word] = [timeStampSeconds]
-		os.remove('transcript.txt')
+		os.remove('transcript_{}.txt'.format(transcript_id))
 		return {'mapping':mapping}
 	except:
 		return {'mapping':{}}
