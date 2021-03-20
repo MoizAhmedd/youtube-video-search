@@ -35,3 +35,6 @@ An extension that lets you search for words in a youtube video, and seeks to tha
 ## Possible Pull Requests
 - Remove preposition words from the mapping (words like "of", "as", "on")
 - Add support for full phrases
+- Add option to download transcript with the searched words highlighted
+- Add support for videos that only have auto-generated captions
+- Show search bar on full screen/theater mode
