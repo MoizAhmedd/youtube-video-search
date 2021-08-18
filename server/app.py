@@ -43,7 +43,7 @@ def get_mapping():
 		return {'mapping':{}}
 
 if __name__ == "__main__":
-	is os.path.exists('keys'):
+	if os.path.exists('keys'):
 		context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 		context.load_cert_chain('keys/cert.pem','keys/privkey.pem')
 		context.load_verify_locations(cafile='keys/chain.pem')
