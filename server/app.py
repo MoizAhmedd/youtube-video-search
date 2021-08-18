@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 import uuid 
+import ssl
 import subprocess
 import os
 
@@ -42,4 +43,12 @@ def get_mapping():
 		return {'mapping':{}}
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+	is os.path.exists('keys'):
+		context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+		context.load_cert_chain('keys/cert.pem','keys/privkey.pem')
+		context.load_verify_locations(cafile='keys/chain.pem')
+		context.check_hostname = False
+		context.verify_mode = ssl.VerifyMode.CERT_NONE
+		app.run(host="0.0.0.0", port=5000, ssl_context=context)
+	else:
+		app.run(host="0.0.0.0", port=5000, debug=True)
